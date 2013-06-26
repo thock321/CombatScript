@@ -98,6 +98,13 @@ public class Variables {
 	public void setBankPath(Tile[] bankPath) {
 		this.bankPath = bankPath;
 	}
+	
+	/**
+	 * Clears the bank path.
+	 */
+	public void clearBankPath() {
+		bankPath = null;
+	}
 
 	private int foodToEat;
 	
