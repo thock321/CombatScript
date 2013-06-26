@@ -14,6 +14,7 @@ public class AbilityLoopTask extends LoopTask {
 	        if (!ActionBar.isExpanded()) {
 	            ActionBar.expand(true);
 	        }
+	        
 	        for (int i = 0; i < 9; i++) {
 	            if (ActionBar.getNode(i).canUse()) {
 	            	if (Random.nextInt(1, 30) == 1) {
