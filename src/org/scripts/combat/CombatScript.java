@@ -55,6 +55,7 @@ public class CombatScript extends ActiveScript implements PaintListener {
 				}
 			}
 		});
+		getContainer().submit(new AbilityLoopTask());
 	}
 
 	@Override

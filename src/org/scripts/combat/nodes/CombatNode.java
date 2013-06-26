@@ -25,7 +25,7 @@ public class CombatNode extends Node {
 
 	@Override
 	public boolean activate() {
-		return Players.getLocal().getInteracting() == null && CombatScript.getInstance().getVars().getNpcTypesToAttack().size() > 0 && 
+		return !Players.getLocal().isInCombat() && CombatScript.getInstance().getVars().getNpcTypesToAttack().size() > 0 && 
 				Players.getLocal().isMoving() == false;
 	}
 	
