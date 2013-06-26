@@ -37,7 +37,9 @@ public class BankingNode extends Node {
 				
 			};
 			sleeper.execute();
-			CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_COMBAT_AREA);
+			if (Bank.close()) {
+				CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_COMBAT_AREA);
+			}
 		} else {
 			CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_BANK);
 		}
