@@ -1,4 +1,4 @@
-package org.scripts.combat;
+package org.scripts.combat.jobs;
 
 import org.powerbot.core.script.job.LoopTask;
 import org.powerbot.game.api.methods.interactive.Players;

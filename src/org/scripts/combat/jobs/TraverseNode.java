@@ -1,4 +1,4 @@
-package org.scripts.combat.nodes;
+package org.scripts.combat.jobs;
 
 import org.powerbot.core.script.job.state.Node;
 import org.powerbot.game.api.methods.Walking;

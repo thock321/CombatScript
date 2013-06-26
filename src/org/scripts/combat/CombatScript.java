@@ -12,7 +12,7 @@ import org.powerbot.game.api.Manifest;
 import org.powerbot.game.api.methods.Game;
 import org.scripts.combat.graphics.Paint;
 import org.scripts.combat.graphics.StartupGUI;
-import org.scripts.combat.nodes.*;
+import org.scripts.combat.jobs.*;
 
 /**
  * A combat script.
