@@ -40,32 +40,9 @@ public class BankingNode extends Node {
 				
 			};
 			sleeper.execute();
-			//travel back to combat area.
-			Tile[] pathToCombatArea = new Tile[CombatScript.getInstance().getVars().getBankPath().length];
-			for (int i = 0; i < pathToCombatArea.length; i++) {
-				pathToCombatArea[i] = CombatScript.getInstance().getVars().getBankPath()[pathToCombatArea.length - (i + 1)];
-			}
-			Walking.newTilePath(pathToCombatArea).traverse();
-			sleeper = new DynamicSleep(new Timer(180000)) {
-
-				@Override
-				public boolean conditionMet() {
-					return Players.getLocal().isMoving() == false;
-				}
-				
-			};
+			CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_COMBAT_AREA);
 		} else {
 			CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_BANK);
-			Walking.newTilePath(CombatScript.getInstance().getVars().getBankPath()).traverse();
-			sleeper = new DynamicSleep(new Timer(180000)) {
-
-				@Override
-				public boolean conditionMet() {
-					return Players.getLocal().isMoving() == false;
-				}
-				
-			};
-			sleeper.execute();
 		}
 	}
 
