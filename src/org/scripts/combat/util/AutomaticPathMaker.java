@@ -51,7 +51,8 @@ public class AutomaticPathMaker {
 	 * @return The path.
 	 */
 	public Tile[] getPath() {
-		return (Tile[]) tilePath.toArray();
+		Tile[] path = new Tile[tilePath.size()];
+		return tilePath.toArray(path);
 	}
 	
 	/**

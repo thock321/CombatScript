@@ -6,6 +6,7 @@ import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.methods.tab.Inventory;
 import org.powerbot.game.api.methods.widget.Bank;
 import org.powerbot.game.api.util.Timer;
+import org.powerbot.game.api.wrappers.Tile;
 import org.scripts.combat.CombatScript;
 import org.scripts.combat.ScriptState;
 import org.scripts.combat.util.DynamicSleep;
@@ -39,6 +40,20 @@ public class BankingNode extends Node {
 				
 			};
 			sleeper.execute();
+			//travel back to combat area.
+			Tile[] pathToCombatArea = new Tile[CombatScript.getInstance().getVars().getBankPath().length];
+			for (int i = 0; i < pathToCombatArea.length; i++) {
+				pathToCombatArea[i] = CombatScript.getInstance().getVars().getBankPath()[pathToCombatArea.length - (i + 1)];
+			}
+			Walking.newTilePath(pathToCombatArea).traverse();
+			sleeper = new DynamicSleep(new Timer(180000)) {
+
+				@Override
+				public boolean conditionMet() {
+					return Players.getLocal().isMoving() == false;
+				}
+				
+			};
 		} else {
 			CombatScript.getInstance().getVars().setCurrentState(ScriptState.WALKING_TO_BANK);
 			Walking.newTilePath(CombatScript.getInstance().getVars().getBankPath()).traverse();
