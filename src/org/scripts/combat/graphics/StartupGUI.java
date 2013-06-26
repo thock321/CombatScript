@@ -45,7 +45,7 @@ public class StartupGUI extends JFrame {
 	 */
 	public StartupGUI() {
 		setTitle("Thock's Combat Script");
-		setBounds(100, 100, 450, 367);
+		setBounds(100, 100, 460, 367);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -190,5 +190,9 @@ public class StartupGUI extends JFrame {
 		JLabel lblPathGenerationState = new JLabel("Bank Path Generation State: ");
 		lblPathGenerationState.setBounds(10, 255, 156, 14);
 		contentPane.add(lblPathGenerationState);
+		
+		JLabel lblNotePleaseWalk = new JLabel("NOTE: Please walk BACK TO THE AREA YOU STARTED THE SCRIPT after path generation.");
+		lblNotePleaseWalk.setBounds(10, 270, 439, 14);
+		contentPane.add(lblNotePleaseWalk);
 	}
 }
