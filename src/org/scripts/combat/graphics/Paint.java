@@ -49,6 +49,7 @@ public class Paint {
 	/**
 	 * Sets the paint.
 	 * @param graphic The Graphics object.
+	 * @param vars The variables.
 	 */
 	public void setPaint(Graphics graphic, Variables vars) {
 		Graphics2D g = (Graphics2D) graphic;

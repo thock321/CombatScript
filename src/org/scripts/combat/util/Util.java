@@ -7,9 +7,6 @@ package org.scripts.combat.util;
  */
 public class Util {
 	
-	/**
-	 * Prevents instantiation.
-	 */
 	private Util() {
 		
 	}
@@ -20,7 +17,7 @@ public class Util {
 	 * @return The string with the first letter capitalized.
 	 */
 	public static String capitalize(String string) {
-		return string.substring(0, 1).toUpperCase() + string.substring(1);
+		return string.toUpperCase().charAt(0) + string.substring(1);
 	}
 
 }

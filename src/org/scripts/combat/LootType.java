@@ -1,19 +1,19 @@
 package org.scripts.combat;
 
 /**
- * Represents loot.
+ * Represents a type of loot.
  * @author Thock321
  *
  */
-public class Loot {
+public class LootType {
 	
 	private int itemId;
 	
 	/**
-	 * Creates a new instance of Loot.
+	 * Creates a new instance of LootType.
 	 * @param itemId The item id of the loot to be looted.
 	 */
-	public Loot(int itemId) {
+	public LootType(int itemId) {
 		this.itemId = itemId;
 	}
 	

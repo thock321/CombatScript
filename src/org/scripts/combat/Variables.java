@@ -49,13 +49,13 @@ public class Variables {
 		return Collections.unmodifiableList(npcTypesToAttack);
 	}
 	
-	private List<Loot> toLoot = new LinkedList<Loot>();
+	private List<LootType> toLoot = new LinkedList<LootType>();
 	
 	/**
 	 * Adds a loot to loot.
 	 * @param loot The loot.
 	 */
-	public void addLootToLoot(Loot loot) {
+	public void addLootToLoot(LootType loot) {
 		toLoot.add(loot);
 	}
 	
@@ -63,7 +63,7 @@ public class Variables {
 	 * Gets the loots to loot.
 	 * @return The loots to loot.
 	 */
-	public List<Loot> getToLoot() {
+	public List<LootType> getToLoot() {
 		return Collections.unmodifiableList(toLoot);
 	}
 	

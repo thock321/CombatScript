@@ -13,7 +13,7 @@ import org.powerbot.game.api.util.Filter;
 import org.powerbot.game.api.wrappers.Tile;
 import org.powerbot.game.api.wrappers.interactive.NPC;
 import org.scripts.combat.CombatScript;
-import org.scripts.combat.Loot;
+import org.scripts.combat.LootType;
 import org.scripts.combat.NPCType;
 import org.scripts.combat.util.AutomaticPathMaker;
 
@@ -185,7 +185,7 @@ public class StartupGUI extends JFrame {
 					}
 					if (textField_1.getText().length() > 0) {
 						for (String lootId : textField_1.getText().split(";")) {
-							script.getVars().addLootToLoot(new Loot(Integer.parseInt(lootId)));
+							script.getVars().addLootToLoot(new LootType(Integer.parseInt(lootId)));
 						}
 					}
 					script.getVars().setFoodToEat(Integer.parseInt(textField.getText()));

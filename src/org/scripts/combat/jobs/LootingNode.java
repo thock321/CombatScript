@@ -6,7 +6,7 @@ import org.powerbot.game.api.methods.node.GroundItems;
 import org.powerbot.game.api.util.Filter;
 import org.powerbot.game.api.util.Timer;
 import org.powerbot.game.api.wrappers.node.GroundItem;
-import org.scripts.combat.Loot;
+import org.scripts.combat.LootType;
 import org.scripts.combat.ScriptState;
 import org.scripts.combat.Variables;
 import org.scripts.combat.util.DynamicSleep;
@@ -32,7 +32,7 @@ public class LootingNode extends Node {
 
 			@Override
 			public boolean accept(GroundItem g) {
-				for (Loot loot : vars.getToLoot()) {
+				for (LootType loot : vars.getToLoot()) {
 					if (g.getId() == loot.getItemId()) {
 						return true;
 					}
