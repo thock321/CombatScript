@@ -18,7 +18,7 @@ public class AbilityLoopTask extends LoopTask {
 				ActionBar.expand(true);
 			}
 	        
-			for (int i = 0; i < 9; i++) {
+			for (int i = 0; i < 12; i++) {
 				if (ActionBar.getNode(i).canUse()) {
 					ActionBar.getNode(i).send();
 					break;
