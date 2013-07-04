@@ -10,8 +10,8 @@ import org.powerbot.game.api.methods.widget.Camera;
 import org.powerbot.game.api.util.Filter;
 import org.powerbot.game.api.util.Random;
 import org.powerbot.game.api.wrappers.node.SceneObject;
-import org.scripts.combat.CombatScript;
 import org.scripts.combat.ScriptState;
+import org.scripts.combat.Variables;
 
 /**
  * A node handling anti-ban functions.
@@ -19,10 +19,16 @@ import org.scripts.combat.ScriptState;
  *
  */
 public class AntiBanNode extends Node {
+	
+	public AntiBanNode(Variables vars) {
+		this.vars = vars;
+	}
+	
+	private Variables vars;
 
 	@Override
 	public boolean activate() {
-		return CombatScript.getInstance().getVars().getCurrentState() == ScriptState.FIGHTING && Random.nextInt(0, 50) == 1;
+		return vars.getCurrentState() == ScriptState.FIGHTING && Random.nextInt(0, 50) == 1;
 	}
 
 	@Override

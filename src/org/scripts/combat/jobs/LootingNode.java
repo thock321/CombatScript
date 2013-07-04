@@ -6,9 +6,9 @@ import org.powerbot.game.api.methods.node.GroundItems;
 import org.powerbot.game.api.util.Filter;
 import org.powerbot.game.api.util.Timer;
 import org.powerbot.game.api.wrappers.node.GroundItem;
-import org.scripts.combat.CombatScript;
 import org.scripts.combat.Loot;
 import org.scripts.combat.ScriptState;
+import org.scripts.combat.Variables;
 import org.scripts.combat.util.DynamicSleep;
 
 /**
@@ -18,6 +18,12 @@ import org.scripts.combat.util.DynamicSleep;
  */
 public class LootingNode extends Node {
 	
+	public LootingNode(Variables vars) {
+		this.vars = vars;
+	}
+	
+	private Variables vars;
+	
 	private GroundItem itemToLoot;
 
 	@Override
@@ -26,7 +32,7 @@ public class LootingNode extends Node {
 
 			@Override
 			public boolean accept(GroundItem g) {
-				for (Loot loot : CombatScript.getInstance().getVars().getToLoot()) {
+				for (Loot loot : vars.getToLoot()) {
 					if (g.getId() == loot.getItemId()) {
 						return true;
 					}
@@ -42,7 +48,7 @@ public class LootingNode extends Node {
 
 	@Override
 	public void execute() {
-		CombatScript.getInstance().getVars().setCurrentState(ScriptState.LOOTING);
+		vars.setCurrentState(ScriptState.LOOTING);
 		itemToLoot.interact("Take", itemToLoot.getGroundItem().getName());
 		sleeper = new DynamicSleep(new Timer(20000)) {
 

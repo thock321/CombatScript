@@ -23,6 +23,9 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  * The GUI shown on startup.
@@ -43,9 +46,9 @@ public class StartupGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StartupGUI() {
+	public StartupGUI(final CombatScript script) {
 		setTitle("Thock's Combat Script");
-		setBounds(100, 100, 542, 436);
+		setBounds(100, 100, 542, 493);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,33 +99,33 @@ public class StartupGUI extends JFrame {
 		textField_1.setColumns(10);
 		
 		final JLabel lblState = new JLabel("Nothing");
-		lblState.setBounds(206, 293, 274, 14);
+		lblState.setBounds(207, 358, 274, 14);
 		contentPane.add(lblState);
 		
 		final AutomaticPathMaker pathMaker = new AutomaticPathMaker();
 		
 		JButton btnStartBankPath = new JButton("Start Bank Path Generation");
-		btnStartBankPath.setBounds(55, 194, 187, 23);
+		btnStartBankPath.setBounds(56, 259, 187, 23);
 		btnStartBankPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pathMaker.startMakingPath(CombatScript.getInstance().getContainer());
+				pathMaker.startMakingPath(script.getContainer());
 				lblState.setText("Generating Path");
 			}
 		});
 		contentPane.add(btnStartBankPath);
 
 		textField_2 = new JTextField();
-		textField_2.setBounds(56, 228, 414, 20);
+		textField_2.setBounds(57, 293, 414, 20);
 		textField_2.setEditable(false);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnStopBankPath = new JButton("Stop Bank Path Generation");
-		btnStopBankPath.setBounds(272, 194, 198, 23);
+		btnStopBankPath.setBounds(273, 259, 198, 23);
 		btnStopBankPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pathMaker.setStop(true);
-				CombatScript.getInstance().getVars().setBankPath(pathMaker.getPath());
+				script.getVars().setBankPath(pathMaker.getPath());
 				lblState.setText("Path Generated");
 				for (Tile t : pathMaker.getPath()) {
 					textField_2.setText(textField_2.getText() + " (" + t.getX() + "," + t.getY() + ")");
@@ -132,23 +135,23 @@ public class StartupGUI extends JFrame {
 		contentPane.add(btnStopBankPath);
 		
 		JButton btnResetBankPath = new JButton("Reset Bank Path Generation");
-		btnResetBankPath.setBounds(56, 259, 414, 23);
+		btnResetBankPath.setBounds(57, 324, 414, 23);
 		btnResetBankPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pathMaker.reset();
 				lblState.setText("Path Reset And Cleared");
 				textField_2.setText("");
-				CombatScript.getInstance().getVars().clearBankPath();
+				script.getVars().clearBankPath();
 			}
 		});
 		contentPane.add(btnResetBankPath);
 		
 		JLabel lblPathGenerationState = new JLabel("Bank Path Generation State: ");
-		lblPathGenerationState.setBounds(61, 293, 156, 14);
+		lblPathGenerationState.setBounds(62, 358, 156, 14);
 		contentPane.add(lblPathGenerationState);
 		
 		JLabel lblNotePleaseWalk = new JLabel("NOTE: Please RETURN TO THE AREA YOU STARTED THE SCRIPT after path generation.");
-		lblNotePleaseWalk.setBounds(56, 318, 424, 14);
+		lblNotePleaseWalk.setBounds(57, 383, 424, 14);
 		contentPane.add(lblNotePleaseWalk);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -170,29 +173,51 @@ public class StartupGUI extends JFrame {
 			}
 		});
 		JButton btnNewButton = new JButton("Start Script");
-		btnNewButton.setBounds(56, 343, 414, 23);
+		btnNewButton.setBounds(57, 408, 414, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					for (int i = 0; i < list.getModel().getSize(); i++) {
-						CombatScript.getInstance().getVars().addNpcTypeToAttack(new NPCType(((String) list.getModel().getElementAt(i)).substring(0, 
+						script.getVars().addNpcTypeToAttack(new NPCType(((String) list.getModel().getElementAt(i)).substring(0, 
 								((String) list.getModel().getElementAt(i)).indexOf("::level - ")), 
 								Integer.parseInt(((String) list.getModel().getElementAt(i)).substring(((String) list.getModel().getElementAt(i))
 										.indexOf("::level - ") + 10))));
 					}
 					if (textField_1.getText().length() > 0) {
 						for (String lootId : textField_1.getText().split(";")) {
-							CombatScript.getInstance().getVars().addLootToLoot(new Loot(Integer.parseInt(lootId)));
+							script.getVars().addLootToLoot(new Loot(Integer.parseInt(lootId)));
 						}
 					}
-					CombatScript.getInstance().getVars().setFoodToEat(Integer.parseInt(textField.getText()));
+					script.getVars().setFoodToEat(Integer.parseInt(textField.getText()));
 				} catch (Exception e) {
-					CombatScript.getInstance().log.severe("Error occured whilst loading variables from GUI.");
+					script.log.severe("Error occured whilst loading variables from GUI.");
 					e.printStackTrace();
 				}
 				dispose();
 			}
 		});
 		contentPane.add(btnNewButton);
+		
+		JSlider slider = new JSlider();
+		slider.setToolTipText("");
+		slider.setValue(65);
+		slider.setBounds(57, 225, 413, 23);
+		contentPane.add(slider);
+		
+		JLabel lblEatAt = new JLabel("Eat at:");
+		lblEatAt.setBounds(207, 200, 36, 14);
+		contentPane.add(lblEatAt);
+		
+		label = new JLabel(slider.getValue() + "%");
+		label.setBounds(253, 200, 46, 14);
+		contentPane.add(label);
+		
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				label.setText(((JSlider) arg0.getSource()).getValue() + "%");
+			}
+		});
 	}
+	
+	JLabel label;
 }

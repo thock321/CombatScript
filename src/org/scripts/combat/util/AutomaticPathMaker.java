@@ -9,6 +9,11 @@ import org.powerbot.game.api.methods.Calculations;
 import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.wrappers.Tile;
 
+/**
+ * An automatic path maker.
+ * @author Thock321
+ *
+ */
 public class AutomaticPathMaker {
 	
 	private static final int DISTANCE_INTERVAL = 5;
@@ -25,6 +30,7 @@ public class AutomaticPathMaker {
 	
 	/**
 	 * Starts creating a path and adding a loop task for it using the specified container.
+	 * @param container The container.
 	 */
 	public void startMakingPath(Container container) {
 		tilePath.add(Players.getLocal().getLocation());
@@ -37,7 +43,7 @@ public class AutomaticPathMaker {
 						tilePath.add(Players.getLocal().getLocation());
 					}
 				} else {
-					//stop or discard this task.
+					interrupt();
 				}
 				return 50;
 			}

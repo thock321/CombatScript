@@ -14,24 +14,30 @@ import org.scripts.combat.ScriptState;
  *
  */
 public class ConsumptionNode extends Node {
+	
+	public ConsumptionNode(CombatScript script) {
+		this.script = script;
+	}
+	
+	private CombatScript script;
 
 	@Override
 	public boolean activate() {
-		return Players.getLocal().getHealthPercent() <= 65 && CombatScript.getInstance().getVars().getFoodToEat() > 0;
+		return Players.getLocal().getHealthPercent() <= 65 && script.getVars().getFoodToEat() > 0;
 	}
 
 	@Override
 	public void execute() {
-		if (!Inventory.contains(CombatScript.getInstance().getVars().getFoodToEat()) && CombatScript.getInstance().getVars().getBankPath() == null) {
-			CombatScript.getInstance().shutdown();
+		if (!Inventory.contains(script.getVars().getFoodToEat()) && script.getVars().getBankPath() == null) {
+			script.shutdown();
 			return;
 		}
 		if (!Tabs.INVENTORY.isOpen()) {
 			Tabs.INVENTORY.open();
 			Task.sleep(100, 200);
 		}
-		CombatScript.getInstance().getVars().setCurrentState(ScriptState.CONSUMING);
-		Inventory.getItem(CombatScript.getInstance().getVars().getFoodToEat()).getWidgetChild().interact("Eat");
+		script.getVars().setCurrentState(ScriptState.CONSUMING);
+		Inventory.getItem(script.getVars().getFoodToEat()).getWidgetChild().interact("Eat");
 		Task.sleep(200, 300);
 	}
 

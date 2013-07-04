@@ -22,16 +22,6 @@ import org.scripts.combat.jobs.*;
 @Manifest(authors = { "Thock321" }, description = "A combat script to handle combat.", name = "Thock321's Combat Script")
 public class CombatScript extends ActiveScript implements PaintListener {
 	
-	private static CombatScript instance;
-	
-	/**
-	 * Gets the active instance of CombatScript
-	 * @return The instance.
-	 */
-	public static CombatScript getInstance() {
-		return instance;
-	}
-	
 	private Tree nodeTree;
 	
 	private Node currentNode;
@@ -42,13 +32,12 @@ public class CombatScript extends ActiveScript implements PaintListener {
 	
 	@Override
 	public void onStart() {
-		instance = this;
-		nodeTree = new Tree(new Node[] {new CombatNode(), new BankingNode(), new ConsumptionNode(), new LootingNode(), new AntiBanNode()});
+		nodeTree = new Tree(new Node[] {new CombatNode(vars), new BankingNode(vars), new ConsumptionNode(this), new LootingNode(vars), new AntiBanNode(vars)});
 		paint.initializeVariables();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartupGUI frame = new StartupGUI();
+					StartupGUI frame = new StartupGUI(getInstance());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,6 +59,10 @@ public class CombatScript extends ActiveScript implements PaintListener {
 		}
 		return 50;
 	}
+	
+	private CombatScript getInstance() {
+		return this;
+	}
 
 	/**
 	 * Gets the variables object the combat script uses.
@@ -81,7 +74,7 @@ public class CombatScript extends ActiveScript implements PaintListener {
 
 	@Override
 	public void onRepaint(Graphics arg0) {
-		paint.setPaint(arg0);
+		paint.setPaint(arg0, vars);
 	}
 
 }

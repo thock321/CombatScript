@@ -9,9 +9,9 @@ import org.powerbot.game.api.methods.widget.Camera;
 import org.powerbot.game.api.util.Filter;
 import org.powerbot.game.api.util.Timer;
 import org.powerbot.game.api.wrappers.interactive.NPC;
-import org.scripts.combat.CombatScript;
 import org.scripts.combat.NPCType;
 import org.scripts.combat.ScriptState;
+import org.scripts.combat.Variables;
 import org.scripts.combat.util.DynamicSleep;
 
 /**
@@ -21,11 +21,17 @@ import org.scripts.combat.util.DynamicSleep;
  */
 public class CombatNode extends Node {
 	
+	public CombatNode(Variables vars) {
+		this.vars = vars;
+	}
+	
+	private Variables vars;
+	
 	private NPC target;
 
 	@Override
 	public boolean activate() {
-		return !Players.getLocal().isInCombat() && CombatScript.getInstance().getVars().getNpcTypesToAttack().size() > 0 && 
+		return !Players.getLocal().isInCombat() && vars.getNpcTypesToAttack().size() > 0 && 
 				Players.getLocal().isMoving() == false;
 	}
 	
@@ -36,7 +42,7 @@ public class CombatNode extends Node {
 		target = getNearestNpcToAttack();
 		if (target == null) 
 			return;
-		CombatScript.getInstance().getVars().setCurrentState(ScriptState.FIGHTING);
+		vars.setCurrentState(ScriptState.FIGHTING);
 		if (Calculations.distance(target, Players.getLocal()) > 10) {
 			Walking.walk(target);
 			sleeper = new DynamicSleep(new Timer(10000)) {
@@ -93,7 +99,7 @@ public class CombatNode extends Node {
 
 			@Override
 			public boolean accept(NPC n) {
-				for (NPCType nt : CombatScript.getInstance().getVars().getNpcTypesToAttack()) {
+				for (NPCType nt : vars.getNpcTypesToAttack()) {
 					if (n != null && n.getName().equalsIgnoreCase(nt.getName()) && n.getHealthPercent() > 1 && n.getInteracting() == null) {
 						return true;
 					}

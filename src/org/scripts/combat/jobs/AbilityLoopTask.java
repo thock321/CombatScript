@@ -6,6 +6,10 @@ import org.powerbot.game.api.util.Random;
 
 import sk.action.ActionBar;
 
+/**
+ * A loop task to handle abilities.
+ * @author Thock321
+ */
 public class AbilityLoopTask extends LoopTask {
 
 	@Override

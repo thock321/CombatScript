@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import org.powerbot.game.api.methods.input.Mouse;
 import org.powerbot.game.api.methods.tab.Skills;
 import org.powerbot.game.api.util.Timer;
-import org.scripts.combat.CombatScript;
+import org.scripts.combat.Variables;
 import org.scripts.combat.util.Util;
 
 /**
@@ -50,10 +50,10 @@ public class Paint {
 	 * Sets the paint.
 	 * @param graphic The Graphics object.
 	 */
-	public void setPaint(Graphics graphic) {
+	public void setPaint(Graphics graphic, Variables vars) {
 		Graphics2D g = (Graphics2D) graphic;
 		g.drawString("Time ran: " + timer.toElapsedString(), 13, 100);
-		g.drawString("State: " + Util.capitalize(CombatScript.getInstance().getVars().getCurrentState().toString().toLowerCase()), 13, 115);
+		g.drawString("State: " + Util.capitalize(vars.getCurrentState().toString().toLowerCase()), 13, 115);
 		g.drawString("Attack XP Gained: " + (Skills.getExperience(Skills.ATTACK) - attackXP), 13, 130);
 		g.drawString("Strength XP gained: " + (Skills.getExperience(Skills.STRENGTH) - strengthXP), 13, 145);
 		g.drawString("Defense XP Gained: " + (Skills.getExperience(Skills.DEFENSE) - defenseXP), 13, 160);
