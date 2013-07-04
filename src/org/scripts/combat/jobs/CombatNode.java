@@ -100,7 +100,7 @@ public class CombatNode extends Node {
 			@Override
 			public boolean accept(NPC n) {
 				for (NPCType nt : vars.getNpcTypesToAttack()) {
-					if (n != null && n.getName().equalsIgnoreCase(nt.getName()) && n.getHealthPercent() > 1 && n.getInteracting() == null) {
+					if (n != null && n.getName().equalsIgnoreCase(nt.getName()) && n.getHealthPercent() > 0 && n.getInteracting() == null) {
 						return true;
 					}
 				}
